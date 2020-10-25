@@ -25,7 +25,7 @@ class CvsController < ApplicationController
   # POST /cvs.json
   def create
     @cv = Cv.new(cv_params)
-
+    
     if @cv.save
       redirect_to @cv, notice: 'CV was successfully created.'
     else

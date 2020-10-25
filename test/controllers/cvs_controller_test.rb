@@ -34,8 +34,12 @@ class CvsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update cv" do
-    patch cv_url(@cv), params: { cv: { link: @cv.link, state: @cv.state, user_id: @cv.user_id } }
-    assert_redirected_to cv_url(@cv)
+    user1 = users(:one)
+    user2 = users(:two)
+    patch cv_url(@cv), params: { cv: { link: @cv.link, state: @cv.state, user_id: user2.id } }
+    @cv.reload
+    assert { @cv.user == user2 }
+    # assert_redirected_to cv_url(@cv)
   end
 
   test "should destroy cv" do
